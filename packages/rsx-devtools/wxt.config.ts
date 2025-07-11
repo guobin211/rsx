@@ -6,7 +6,6 @@ export default defineConfig({
     modulesDir: 'modules',
     outDir: 'dist',
     publicDir: 'public',
-    // Relative to srcDir
     entrypointsDir: 'entrypoints',
     modules: ['@wxt-dev/module-react']
 })
