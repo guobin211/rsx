@@ -1,7 +1,6 @@
 {
     "dependencies": {
         "@swc/core": "^1.12.11",
-        "@types/cheerio": "^1.0.0",
         "@types/react": "^19.1.8",
         "@types/react-dom": "^19.1.6",
         "@vitejs/plugin-react-swc": "^3.10.2",
@@ -30,5 +29,7 @@
         "test": "vitest"
     },
     "type": "module",
+    "module": "src/index.ts",
+    "types": "src/index.ts",
     "version": "0.1.0"
 }

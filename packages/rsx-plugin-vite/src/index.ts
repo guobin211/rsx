@@ -1,5 +1,5 @@
 import * as path from 'node:path'
-import { RsxCompiler, RsxCompilerContext } from 'rsx-compiler/src'
+import { RsxCompiler, RsxCompilerContext } from 'rsx-compiler'
 import { createLogger, type Plugin } from 'vite'
 
 const logger = createLogger('info')

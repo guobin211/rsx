@@ -5,7 +5,7 @@
     },
     "description": "rsx vscode language server",
     "devDependencies": {
-        "@types/node": "^24.0.13",
+        "@types/node": "^22.16.3",
         "esbuild": "^0.25.6",
         "typescript": "^5.8.3"
     },

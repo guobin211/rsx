@@ -1,8 +1,8 @@
 import * as path from 'node:path'
 import { fileURLToPath } from 'node:url'
 import react from '@vitejs/plugin-react-swc'
+import { RsxPlugin } from 'rsx-plugin-vite/dist/index'
 import { defineConfig } from 'vite'
-import { RsxPlugin } from '../packages/rsx-plugin-vite/src/index'
 
 const dirname = path.dirname(fileURLToPath(import.meta.url))
 

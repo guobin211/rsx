@@ -8,7 +8,10 @@
         "react": "^19.1.0",
         "react-dom": "^19.1.0",
         "typescript": "^5.8.3",
-        "vite": "^7.0.4"
+        "vite": "^7.0.4",
+        "rsx": "workspace:*",
+        "rsx-compiler": "workspace:*",
+        "rsx-plugin-vite": "workspace:*"
     },
     "description": "rsx app example",
     "name": "app",
@@ -18,8 +21,8 @@
         "url": "git@git.woa.com:michaelbguo/devx.git"
     },
     "scripts": {
-        "build": "vite build",
-        "dev": "vite",
+        "dev:": "vite",
+        "build:app": "vite build",
         "rs:build": "cargo build",
         "rs:dev": "cargo watch -x run",
         "test": "cargo test"

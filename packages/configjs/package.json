@@ -1,0 +1,18 @@
+{
+    "name": "configjs",
+    "version": "0.1.0",
+    "description": "nodejs config management library",
+    "main": "mod.js",
+    "module": "mod.js",
+    "types": "mod.d.ts",
+    "type": "module",
+    "repository": {
+        "type": "git",
+        "url": "git@git.woa.com:michaelbguo/devx.git"
+    },
+    "files": [
+        "mod.js",
+        "mod.d.ts"
+    ],
+    "private": true
+}

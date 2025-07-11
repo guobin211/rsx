@@ -1,0 +1,43 @@
+export const NODEJS_BUILDIN_MODULES = [
+    'assert',
+    'buffer',
+    'child_process',
+    'cluster',
+    'console',
+    'constants',
+    'crypto',
+    'dgram',
+    'dns',
+    'domain',
+    'events',
+    'fs',
+    'fs/promises',
+    'http',
+    'http2',
+    'https',
+    'module',
+    'net',
+    'os',
+    'path',
+    'punycode',
+    'process',
+    'querystring',
+    'readline',
+    'repl',
+    'stream',
+    'stream/promises',
+    'string_decoder',
+    'sys',
+    'timers',
+    'tls',
+    'tty',
+    'url',
+    'util',
+    'vm',
+    'zlib',
+    'worker_threads'
+].reduce((acc, cur) => {
+    return acc.concat(cur, `node:${cur}`)
+}, [])
+
+export const VITE_MODULES = ['vite', 'vitest', 'vite-plugin-dts', 'tsx', 'tslib', 'typescript']

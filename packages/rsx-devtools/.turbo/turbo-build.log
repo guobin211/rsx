@@ -1,12 +1,12 @@
 
 
-> rsx-devtools@0.1.0 build /Users/guobin/tencent/devx/crates/rsx-devtools
+> rsx-devtools@0.1.0 build /Users/guobin/tencent/rsx/packages/rsx-devtools
 > wxt build
 
 
-[90mWXT[39m [90m[1m0.20.7[22m[39m                                                                                                                                                                                                                                                               [90m10:33:04 AM[39m
-[36mℹ[39m Building [36mchrome-mv3[39m for [36mproduction[39m with [32mVite 6.3.5[39m                                                                                                                                                                                                                    [90m10:33:04 AM[39m
-[?25l[1G[1G[36m⠋[39m Preparing...[1G[0K[36m⠋[39m [2m[2/3][22m content[1G[0K[36m⠙[39m [2m[3/3][22m popup[1G[0K[36m⠹[39m [2m[3/3][22m popup[1G[0K[36m⠸[39m [2m[3/3][22m popup[1G[0K[1G[?25h[32m✔[39m Built extension in 580 ms                                                                                                                                                                                                                                             [90m10:33:04 AM[39m
+[90mWXT[39m [90m[1m0.20.7[22m[39m                                                                                                                                                                                                                                                                [90m2:50:03 PM[39m
+[36mℹ[39m Building [36mchrome-mv3[39m for [36mproduction[39m with [32mVite 6.3.5[39m                                                                                                                                                                                                                     [90m2:50:03 PM[39m
+[?25l[1G[1G[36m⠋[39m Preparing...[1G[0K[36m⠙[39m [2m[2/3][22m content[1G[0K[36m⠹[39m [2m[3/3][22m popup[1G[0K[36m⠸[39m [2m[3/3][22m popup[1G[0K[36m⠼[39m [2m[3/3][22m popup[1G[0K[1G[?25h[32m✔[39m Built extension in 636 ms                                                                                                                                                                                                                                              [90m2:50:03 PM[39m
 [90m  ├─[39m [2mdist/chrome-mv3/[22m[34mmanifest.json[39m               [2m377 B[22m    
 [90m  ├─[39m [2mdist/chrome-mv3/[22m[32mpopup.html[39m                  [2m438 B[22m    
 [90m  ├─[39m [2mdist/chrome-mv3/[22m[36mbackground.js[39m               [2m685 B[22m    
@@ -20,5 +20,5 @@
 [90m  ├─[39m [2mdist/chrome-mv3/[22m[34micon/96.png[39m                 [2m2.37 kB[22m  
 [90m  └─[39m [2mdist/chrome-mv3/[22m[34mwxt.svg[39m                     [2m1.07 kB[22m  
 [36mΣ Total size:[39m 202.55 kB                                           
-[32m✔[39m Finished in 614 ms                                                                                                                                                                                                                                                    [90m10:33:04 AM[39m
+[32m✔[39m Finished in 672 ms                                                                                                                                                                                                                                                     [90m2:50:03 PM[39m
 [?25h

@@ -1,0 +1,32 @@
+{
+    "$schema": "https://turbo.build/schema.json",
+    "dangerouslyDisablePackageManagerCheck": true,
+    "cacheDir": ".turbo/cache",
+    "ui": "stream",
+    "daemon": false,
+    "remoteCache": {
+        "enabled": true,
+        "apiUrl": "http://localhost:3300"
+    },
+    "globalDependencies": [".env", "tsconfig.json"],
+    "globalEnv": [],
+    "globalPassThroughEnv": [],
+    "tasks": {
+        "build": {
+            "dependsOn": ["^build"],
+            "outputs": ["dist/**", ".next/**", "!.next/cache/**"]
+        },
+        "dev": {
+            "cache": false,
+            "persistent": true
+        },
+        "check": {
+            "cache": false,
+            "persistent": true
+        },
+        "clean": {
+            "cache": false,
+            "persistent": true
+        }
+    }
+}

@@ -38,6 +38,9 @@ importers:
       tsx:
         specifier: ^4.20.3
         version: 4.20.3
+      turbo:
+        specifier: ^2.5.4
+        version: 2.5.4
       typescript:
         specifier: ^5.8.3
         version: 5.8.3
@@ -71,12 +74,23 @@ importers:
       react-dom:
         specifier: ^19.1.0
         version: 19.1.0(react@19.1.0)
+      rsx:
+        specifier: workspace:*
+        version: link:../packages/rsx
+      rsx-compiler:
+        specifier: workspace:*
+        version: link:../packages/rsx-compiler
+      rsx-plugin-vite:
+        specifier: workspace:*
+        version: link:../packages/rsx-plugin-vite
       typescript:
         specifier: ^5.8.3
         version: 5.8.3
       vite:
         specifier: ^7.0.4
         version: 7.0.4(@types/node@22.16.3)(jiti@2.4.2)(tsx@4.20.3)
+
+  packages/configjs: {}
 
   packages/rsx:
     dependencies:
@@ -98,12 +112,6 @@ importers:
       react-dom:
         specifier: ^19.1.0
         version: 19.1.0(react@19.1.0)
-      rsx-compiler:
-        specifier: workspace:*
-        version: link:../rsx-compiler
-      rsx-plugin-vite:
-        specifier: workspace:*
-        version: link:../rsx-plugin-vite
       tsdown:
         specifier: ^0.12.9
         version: 0.12.9(oxc-resolver@11.5.2)(typescript@5.8.3)
@@ -116,15 +124,19 @@ importers:
       vitest:
         specifier: ^3.2.4
         version: 3.2.4(@types/node@24.0.13)(jiti@2.4.2)(tsx@4.20.3)
+    devDependencies:
+      rsx-compiler:
+        specifier: workspace:*
+        version: link:../rsx-compiler
+      rsx-plugin-vite:
+        specifier: workspace:*
+        version: link:../rsx-plugin-vite
 
   packages/rsx-compiler:
     dependencies:
       '@swc/core':
         specifier: ^1.12.11
         version: 1.12.11
-      '@types/cheerio':
-        specifier: ^1.0.0
-        version: 1.0.0
       '@types/react':
         specifier: ^19.1.8
         version: 19.1.8
@@ -228,9 +240,6 @@ importers:
       react-dom:
         specifier: ^19.1.0
         version: 19.1.0(react@19.1.0)
-      rsx-compiler:
-        specifier: workspace:*
-        version: link:../rsx-compiler
       tsdown:
         specifier: ^0.12.9
         version: 0.12.9(oxc-resolver@11.5.2)(typescript@5.8.3)
@@ -243,6 +252,10 @@ importers:
       vitest:
         specifier: ^3.2.4
         version: 3.2.4(@types/node@24.0.13)(jiti@2.4.2)(tsx@4.20.3)
+    devDependencies:
+      rsx-compiler:
+        specifier: workspace:*
+        version: link:../rsx-compiler
 
   packages/rsx-vscode:
     dependencies:
@@ -251,8 +264,8 @@ importers:
         version: 9.0.1
     devDependencies:
       '@types/node':
-        specifier: ^24.0.13
-        version: 24.0.13
+        specifier: ^22.16.3
+        version: 22.16.3
       '@types/vscode':
         specifier: ^1.102.0
         version: 1.102.0
@@ -273,8 +286,8 @@ importers:
         version: 1.0.12
     devDependencies:
       '@types/node':
-        specifier: ^24.0.13
-        version: 24.0.13
+        specifier: ^22.16.3
+        version: 22.16.3
       esbuild:
         specifier: ^0.25.6
         version: 0.25.6
@@ -1178,10 +1191,6 @@ packages:
 
   '@types/chai@5.2.2':
     resolution: {integrity: sha512-8kB30R7Hwqf40JPiKhVzodJs2Qc1ZJ5zuT3uzw5Hq/dhNCl3G3l83jfpdI1e20BP348+fV7VIL/+FxaXkqBmWg==}
-
-  '@types/cheerio@1.0.0':
-    resolution: {integrity: sha512-zAaImHWoh5RY2CLgU2mvg3bl2k3F65B0N5yphuII3ythFLPmJhL7sj1RDu6gSxcgqHlETbr/lhA2OBY+WF1fXQ==}
-    deprecated: This is a stub types definition. cheerio provides its own type definitions, so you do not need this installed.
 
   '@types/deep-eql@4.0.2':
     resolution: {integrity: sha512-c9h9dVVMigMPc4bwTvC5dxqtqJZwQPePsWjPlpSOnojbor6pGqdk541lfA7AqFQr5pB1BRdq0juY9db81BwyFw==}
@@ -2937,6 +2946,40 @@ packages:
     engines: {node: '>=18.0.0'}
     hasBin: true
 
+  turbo-darwin-64@2.5.4:
+    resolution: {integrity: sha512-ah6YnH2dErojhFooxEzmvsoZQTMImaruZhFPfMKPBq8sb+hALRdvBNLqfc8NWlZq576FkfRZ/MSi4SHvVFT9PQ==}
+    cpu: [x64]
+    os: [darwin]
+
+  turbo-darwin-arm64@2.5.4:
+    resolution: {integrity: sha512-2+Nx6LAyuXw2MdXb7pxqle3MYignLvS7OwtsP9SgtSBaMlnNlxl9BovzqdYAgkUW3AsYiQMJ/wBRb7d+xemM5A==}
+    cpu: [arm64]
+    os: [darwin]
+
+  turbo-linux-64@2.5.4:
+    resolution: {integrity: sha512-5May2kjWbc8w4XxswGAl74GZ5eM4Gr6IiroqdLhXeXyfvWEdm2mFYCSWOzz0/z5cAgqyGidF1jt1qzUR8hTmOA==}
+    cpu: [x64]
+    os: [linux]
+
+  turbo-linux-arm64@2.5.4:
+    resolution: {integrity: sha512-/2yqFaS3TbfxV3P5yG2JUI79P7OUQKOUvAnx4MV9Bdz6jqHsHwc9WZPpO4QseQm+NvmgY6ICORnoVPODxGUiJg==}
+    cpu: [arm64]
+    os: [linux]
+
+  turbo-windows-64@2.5.4:
+    resolution: {integrity: sha512-EQUO4SmaCDhO6zYohxIjJpOKRN3wlfU7jMAj3CgcyTPvQR/UFLEKAYHqJOnJtymbQmiiM/ihX6c6W6Uq0yC7mA==}
+    cpu: [x64]
+    os: [win32]
+
+  turbo-windows-arm64@2.5.4:
+    resolution: {integrity: sha512-oQ8RrK1VS8lrxkLriotFq+PiF7iiGgkZtfLKF4DDKsmdbPo0O9R2mQxm7jHLuXraRCuIQDWMIw6dpcr7Iykf4A==}
+    cpu: [arm64]
+    os: [win32]
+
+  turbo@2.5.4:
+    resolution: {integrity: sha512-kc8ZibdRcuWUG1pbYSBFWqmIjynlD8Lp7IB6U3vIzvOv9VG+6Sp8bzyeBWE3Oi8XV5KsQrznyRTBPvrf99E4mA==}
+    hasBin: true
+
   type-fest@3.13.1:
     resolution: {integrity: sha512-tLq3bSNx+xSpwvAJnzrK0Ep5CLNWjvFTOp71URMaAEWBfRb9nnJiBoUe0tF8bI4ZFO3omgBR6NvnbzVUT3Ly4g==}
     engines: {node: '>=14.16'}
@@ -3954,10 +3997,6 @@ snapshots:
   '@types/chai@5.2.2':
     dependencies:
       '@types/deep-eql': 4.0.2
-
-  '@types/cheerio@1.0.0':
-    dependencies:
-      cheerio: 1.1.0
 
   '@types/deep-eql@4.0.2': {}
 
@@ -5794,6 +5833,33 @@ snapshots:
       get-tsconfig: 4.10.1
     optionalDependencies:
       fsevents: 2.3.3
+
+  turbo-darwin-64@2.5.4:
+    optional: true
+
+  turbo-darwin-arm64@2.5.4:
+    optional: true
+
+  turbo-linux-64@2.5.4:
+    optional: true
+
+  turbo-linux-arm64@2.5.4:
+    optional: true
+
+  turbo-windows-64@2.5.4:
+    optional: true
+
+  turbo-windows-arm64@2.5.4:
+    optional: true
+
+  turbo@2.5.4:
+    optionalDependencies:
+      turbo-darwin-64: 2.5.4
+      turbo-darwin-arm64: 2.5.4
+      turbo-linux-64: 2.5.4
+      turbo-linux-arm64: 2.5.4
+      turbo-windows-64: 2.5.4
+      turbo-windows-arm64: 2.5.4
 
   type-fest@3.13.1: {}
 
