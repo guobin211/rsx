@@ -1,0 +1,34 @@
+{
+    "compilerOptions": {
+        "target": "ESNext",
+        "lib": ["ESNext", "DOM"],
+        "module": "ESNext",
+        "skipLibCheck": true,
+        "allowSyntheticDefaultImports": true,
+        "allowJs": true,
+        "declaration": true,
+        "emitDecoratorMetadata": true,
+        "experimentalDecorators": true,
+        "resolveJsonModule": true,
+        "isolatedModules": true,
+        "noEmit": true,
+        "jsx": "react-jsx",
+        "strict": true,
+        "moduleResolution": "node",
+        "paths": {
+            "src/*": ["./src/*"]
+        }
+    },
+    "exclude": [
+        "node_modules",
+        "dist",
+        "target",
+        "build",
+        "coverage",
+        "public",
+        "config",
+        "docs",
+        ".next",
+        ".turbo"
+    ]
+}

@@ -1,0 +1,5 @@
+echo "Running pre-commit hook..."
+pnpm run fmt
+pnpm run lint
+echo "Running pre-commit hook successfully"
+git update-index --again

@@ -1,0 +1,17 @@
+{
+    "ignorePatterns": [
+        "**/static/**",
+        "**/dist/**",
+        "**/node_modules/**",
+        "**/build/**",
+        "**/target/**",
+        "**/coverage/**",
+        "**/.cache/**",
+        "**/.next/**",
+        "**/.turbo/**",
+        "**/public/**"
+    ],
+    "rules": {
+        "no-control-regex": "off"
+    }
+}

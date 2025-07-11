@@ -1,0 +1,12 @@
+dist
+package
+node_modules
+npm-debug.log
+yarn-error.log
+yarn-debug.log
+
+*.tgz
+*.vsix
+.DS_Store
+.idea
+.zed

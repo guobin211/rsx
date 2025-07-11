@@ -1,0 +1,24 @@
+[package]
+name = "rsx"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+actix-web = { workspace = true }
+actix-files = { workspace = true }
+actix-rt = { workspace = true }
+anyhow = { workspace = true }
+dotenv = { workspace = true }
+env_logger = { workspace = true }
+log = { workspace = true }
+handlebars = { workspace = true }
+http = { workspace = true }
+walkdir = { workspace = true }
+quick_cache = { workspace = true }
+serde = { workspace = true }
+serde_json = { workspace = true }
+futures = { workspace = true }
+futures-util = { workspace = true }
+
+[build-dependencies]
+dotenv = { workspace = true }

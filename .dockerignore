@@ -1,0 +1,16 @@
+.idea
+.turbo
+.vscode
+.zed
+.fleet
+.vercel
+.tanstack
+.DS_Store
+
+target
+dist
+node_modules
+
+examples
+tests
+uploads

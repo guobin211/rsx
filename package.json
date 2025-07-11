@@ -1,0 +1,38 @@
+{
+    "name": "rsx",
+    "version": "0.1.0",
+    "description": "rust ssr framework for react",
+    "type": "module",
+    "license": "MIT",
+    "scripts": {
+        "dev": "pnpm --filter app dev",
+        "update:all": "pnpm update -r",
+        "update:rs": "cargo update",
+        "fmt": "pnpm fmt:js && pnpm fmt:rs && pnpm fmt:doc",
+        "fmt:js": "biome format . --write",
+        "fmt:rs": "cargo fmt --all",
+        "fmt:doc": "prettier -w ./*.md ./packages/**/*.md ./crates/**/*.md --log-level warn",
+        "lint": "pnpm run lint:rs && pnpm run lint:js ",
+        "lint:rs": "cargo clippy --all --fix --allow-dirty --allow-staged",
+        "lint:js": "pnpm run lint:js:biome && pnpm run lint:js:oxc",
+        "lint:js:biome": "biome lint . --fix",
+        "lint:js:oxc": "oxlint .",
+        "test:rs": "cargo test",
+        "prepare": "husky"
+    },
+    "devDependencies": {
+        "@biomejs/biome": "^2.1.1",
+        "@types/node": "^22.16.3",
+        "@types/react": "^19.1.8",
+        "@types/react-dom": "^19.1.6",
+        "execa": "^9.6.0",
+        "husky": "^9.1.7",
+        "oxlint": "^1.6.0",
+        "prettier": "^3.6.2",
+        "rimraf": "^6.0.1",
+        "tsx": "^4.20.3",
+        "typescript": "^5.8.3",
+        "vite": "^7.0.4",
+        "vitest": "^3.2.4"
+    }
+}

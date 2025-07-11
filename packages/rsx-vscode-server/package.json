@@ -1,0 +1,23 @@
+{
+    "dependencies": {
+        "vscode-languageserver": "^9.0.1",
+        "vscode-languageserver-textdocument": "^1.0.12"
+    },
+    "description": "rsx vscode language server",
+    "devDependencies": {
+        "@types/node": "^24.0.13",
+        "esbuild": "^0.25.6",
+        "typescript": "^5.8.3"
+    },
+    "license": "MIT",
+    "main": "index.js",
+    "name": "rsx-vscode-server",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/guobin211/rsx-vscode.git"
+    },
+    "scripts": {
+        "build": "node build.mjs"
+    },
+    "version": "0.2.8"
+}

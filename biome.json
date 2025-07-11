@@ -1,0 +1,95 @@
+{
+    "assist": {
+        "actions": {
+            "source": {
+                "organizeImports": "on"
+            }
+        }
+    },
+    "files": {
+        "ignoreUnknown": true,
+        "includes": [
+            "**",
+            "!**/node_modules/**",
+            "!**/.idea",
+            "!**/.vscode",
+            "!**/.zed",
+            "!**/*public",
+            "!**/*dist",
+            "!**/*gen",
+            "!**/*target"
+        ]
+    },
+    "formatter": {
+        "includes": [
+            "**",
+            "!**/node_modules/**",
+            "!**/.idea",
+            "!**/.vscode",
+            "!**/.zed",
+            "!**/*public",
+            "!**/*dist",
+            "!**/*gen",
+            "!**/*target"
+        ],
+        "attributePosition": "auto",
+        "bracketSpacing": true,
+        "enabled": true,
+        "formatWithErrors": false,
+        "indentStyle": "space",
+        "indentWidth": 4,
+        "lineEnding": "lf",
+        "lineWidth": 100,
+        "useEditorconfig": true
+    },
+    "javascript": {
+        "formatter": {
+            "arrowParentheses": "always",
+            "attributePosition": "auto",
+            "bracketSameLine": false,
+            "bracketSpacing": true,
+            "jsxQuoteStyle": "double",
+            "quoteProperties": "asNeeded",
+            "quoteStyle": "single",
+            "semicolons": "asNeeded",
+            "trailingCommas": "none"
+        }
+    },
+    "linter": {
+        "enabled": true,
+        "rules": {
+            "a11y": "off",
+            "complexity": {
+                "noStaticOnlyClass": "off",
+                "useLiteralKeys": "off"
+            },
+            "correctness": {
+                "useExhaustiveDependencies": "off"
+            },
+            "performance": {
+                "noAccumulatingSpread": "off",
+                "noImgElement": "off"
+            },
+            "recommended": true,
+            "style": {
+                "noNonNullAssertion": "off"
+            },
+            "suspicious": {
+                "noArrayIndexKey": "off",
+                "noAssignInExpressions": "off",
+                "noControlCharactersInRegex": "off",
+                "noExplicitAny": "off",
+                "noMisleadingCharacterClass": "off",
+                "noDocumentImportInPage": "off"
+            },
+            "security": {
+                "noBlankTarget": "off"
+            }
+        }
+    },
+    "vcs": {
+        "clientKind": "git",
+        "enabled": true,
+        "useIgnoreFile": true
+    }
+}

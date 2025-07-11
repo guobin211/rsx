@@ -1,0 +1,23 @@
+root = true
+
+[*]
+charset = utf-8
+end_of_line = lf
+indent_size = 4
+indent_style = space
+insert_final_newline = true
+max_line_length = 100
+tab_width = 4
+trim_trailing_whitespace = true
+ij_javascript_use_semicolon_after_statement = false
+ij_typescript_use_semicolon_after_statement = false
+
+[*.{js,jsx,ts,tsx,cjs,mjs}]
+quote_type = single
+indent_size = 4
+tab_width = 4
+semicolons = false
+
+[{*.rs,*.rsx,*.rsc,*.slint}]
+tab_width = 4
+indent_size = 4

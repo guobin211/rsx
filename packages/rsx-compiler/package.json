@@ -1,0 +1,34 @@
+{
+    "dependencies": {
+        "@swc/core": "^1.12.11",
+        "@types/cheerio": "^1.0.0",
+        "@types/react": "^19.1.8",
+        "@types/react-dom": "^19.1.6",
+        "@vitejs/plugin-react-swc": "^3.10.2",
+        "cheerio": "^1.1.0",
+        "fast-glob": "^3.3.3",
+        "handlebars": "^4.7.8",
+        "oxc-parser": "^0.75.1",
+        "oxc-resolver": "^11.5.2",
+        "react": "^19.1.0",
+        "react-dom": "^19.1.0",
+        "tree-sitter": "0.21.1",
+        "tree-sitter-css": "0.21.1",
+        "tree-sitter-html": "0.23.2",
+        "tree-sitter-rust": "0.21.0",
+        "tree-sitter-typescript": "0.21.2",
+        "tsdown": "^0.12.9",
+        "typescript": "^5.8.3",
+        "vite": "^7.0.4",
+        "vitest": "^3.2.4"
+    },
+    "description": "rsx is a rust backend framwork for building web applications.",
+    "name": "rsx-compiler",
+    "scripts": {
+        "build": "tsdown",
+        "dev": "tsdown --watch",
+        "test": "vitest"
+    },
+    "type": "module",
+    "version": "0.1.0"
+}
