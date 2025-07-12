@@ -1,0 +1,80 @@
+---
+alwaysApply: true
+---
+
+# 编码规范
+
+## 通用规则
+
+- 使用中文进行交流沟通
+- 代码问题直接给出答案和代码实现，不需要解释推理过程
+- 代码注释规范：
+    - 不使用行尾注释
+    - 只给函数添加注释，不要使用JsDoc注释，使用Typescript类型系统来描述函数参数和返回值
+    - 只在必要的判断逻辑处添加注释
+- 忽略版本控制的目录：
+    - node_modules
+    - dist
+    - build
+    - target
+    - uploads
+    - pkg
+    - npm
+    - public
+    - assets
+- 忽略编译生成的文件：
+    - .d.ts
+    - .wasm
+    - .cjs
+    - .mjs
+- 忽略配置文件：
+    - .env
+    - .env.local
+    - .env.development
+    - .env.production
+    - .env.test
+- 函数命名规范：
+    - `ts`代码和`js`代码使用小驼峰命名法，例如：`getUserInfo`。`rust`代码使用蛇形命名法，例如：`get_user_info`。
+    - 函数名应简洁明了，描述函数的功能，不添加行尾注释
+    - 不要使用缩写，除非是非常常见的缩写
+- 文件命名规范：
+    - `ts`代码和`js`代码使用`angular`框架的命名法，例如：`use-window-state.ts`和`user.service.ts`。`rust`代码使用蛇形命名法，例如：`user_service.rs`。
+    - 文件名应简洁明了，描述文件的功能
+
+## 技术栈
+
+### 后端技术
+
+- Rust
+    - actix-web (Web框架)
+    - tokio (异步运行时)
+    - clap (命令行参数解析)
+    - reqwest (HTTP客户端)
+    - serde (序列化/反序列化)
+    - serde_json (JSON处理)
+    - anyhow (错误处理)
+    - lazy_static (静态变量)
+
+- TypeScript/Node.js
+    - ofetch (HTTP客户端)
+    - vitest (测试框架)
+    - zod (数据验证)
+    - dotenv (环境变量管理)
+    - dayjs (日期时间处理)
+    - es-toolkit (常用函数库)
+    - execa (命令行执行)
+    - pino (日志处理)
+
+### 前端技术
+
+- React (前端框架)
+- Zustand (状态管理)
+- Scss (样式处理)
+
+### Typescript构建工具
+
+- vite (Web构建工具)
+- vitest (测试框架)
+- tsdown (库构建工具)
+- rsbuild (Webpack构建工具)
+- esbuild (Nodejs服务端打包工具)

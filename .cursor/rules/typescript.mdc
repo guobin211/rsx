@@ -1,0 +1,403 @@
+---
+description:
+globs: *.ts,*.tsx,*.js
+alwaysApply: false
+---
+
+# TypeScript编码规范
+
+- 使用单引号
+- 使用ES6模块化
+- 使用async/await处理异步操作
+- 使用try/catch处理异常
+- 使用vitest进行单元测试
+- 使用hono编写服务端代码
+- 使用mongoose操作MongoDB
+- 使用ioredis操作Redis
+- 使用ofetch发送HTTP请求
+- 使用zod进行数据验证
+- 使用dotenv管理环境变量
+- 使用dayjs处理日期时间
+- 使用es-toolkit作为常用函数库
+- 使用execa来执行命令行命令
+- 使用pino来处理日志
+- react使用使用clsx来处理类名
+- react使用ahooks库作为常用hooks
+- react使用react-hook-form库来处理表单
+- 导入nodejs内部模块时带上`node:`前缀，如`import fs from 'node:fs/promises'`
+
+## 基本规范
+
+### 语法规则
+
+- 使用4个空格缩进
+- 使用单引号作为字符串定界符
+- 行宽不超过100字符
+- 优先使用`const`声明变量，避免使用`let`
+- 异步函数使用`async`关键字声明
+- 文件名使用kebab-case（短横线分隔）、采用`angular`的命名风格
+
+### 函数声明
+
+- 函数名使用camelCase
+- 函数有返回值时使用明确的返回类型
+
+```typescript
+function getUserInfo(id: string): Promise<UserInfo> {
+    return fetchUser(id);
+}
+```
+
+### 异步编程
+
+- 使用`async/await`处理异步操作
+- 使用`try/catch`处理异常
+- 函数省略`void`返回类型
+
+```typescript
+async function fetchData() {
+    try {
+        const result = await api.getData();
+        processResult(result);
+    } catch (error) {
+        handleError(error);
+    }
+}
+```
+
+### 循环和遍历
+
+- 使用`for...of`遍历数组
+
+```typescript
+for (const item of items) {
+    processItem(item);
+}
+```
+
+- 使用`Object.entries`遍历对象
+
+```typescript
+for (const [key, value] of Object.entries(obj)) {
+    processKeyValue(key, value);
+}
+```
+
+### 类型定义
+
+- 使用`interface`定义对象类型
+
+```typescript
+interface UserProfile {
+    id: string;
+    name: string;
+    age: number;
+}
+```
+
+- 使用`type`定义联合类型
+
+```typescript
+type Status = 'active' | 'inactive' | 'pending';
+```
+
+### 枚举定义
+
+- 不使用`enum`，使用`const`对象和类型推导
+
+```typescript
+export const STATUS = {
+    ACTIVE: 'active',
+    INACTIVE: 'inactive',
+    PENDING: 'pending'
+} as const;
+
+export type Status = (typeof STATUS)[keyof typeof STATUS];
+```
+
+### 注释规范
+
+- 不使用JSDoc
+- 不使用行尾注释
+- 只给函数和复杂逻辑添加注释
+
+```typescript
+// 处理用户认证并返回token
+function authenticateUser(credentials: Credentials): Promise<Token> {
+    // 验证用户凭证并检查权限
+    if (isValidCredentials(credentials) && hasPermission(credentials)) {
+        return generateToken(credentials);
+    }
+    throw new Error('Authentication failed');
+}
+```
+
+## Node.js服务端规范
+
+### 文件命名
+
+- 使用kebab-case（短横线分隔）
+- 遵循NestJS命名风格
+
+```
+user.controller.ts
+user.service.ts
+user.dto.ts
+user-profile.interface.ts
+```
+
+### 数据库操作
+
+- 使用`mongoose`进行MongoDB操作
+
+```typescript
+interface UserDocument extends Document {
+    name: string;
+    email: string;
+}
+
+const UserSchema = new Schema<UserDocument>({
+    name: { type: String, required: true },
+    email: { type: String, required: true }
+});
+```
+
+### 数据校验
+
+- 使用`zod`进行数据校验
+
+#### 基本校验模式
+
+```typescript
+import { z } from 'zod';
+
+// 定义校验模式
+const UserSchema = z.object({
+    name: z.string().min(2).max(50),
+    email: z.string().email(),
+    age: z.number().int().positive().optional()
+});
+
+// 类型推导
+type User = z.infer<typeof UserSchema>;
+
+// 校验数据
+function validateUser(data: unknown): User {
+    return UserSchema.parse(data);
+}
+```
+
+#### API请求校验
+
+```typescript
+function createUser(req: Request, res: Response): void {
+    try {
+        const userData = validateUser(req.body);
+        userService.create(userData);
+        res.status(200).send({ code: 0, msg: 'success' });
+    } catch (error) {
+        if (error instanceof z.ZodError) {
+            res.status(200).send({
+                code: 1,
+                msg: 'Validation failed',
+                errors: error.errors
+            });
+        } else {
+            res.status(500).send({ msg: 'Internal server error' });
+        }
+    }
+}
+```
+
+#### 高级校验模式
+
+```typescript
+// 嵌套对象校验
+const AddressSchema = z.object({
+    street: z.string(),
+    city: z.string(),
+    country: z.string()
+});
+
+const UserWithAddressSchema = UserSchema.extend({
+    address: AddressSchema
+});
+
+// 数组校验
+const UsersSchema = z.array(UserSchema);
+
+// 联合类型校验
+const StatusSchema = z.union([z.literal('active'), z.literal('inactive'), z.literal('pending')]);
+
+// 枚举值校验
+const RoleSchema = z.enum(['admin', 'user', 'guest']);
+
+// 自定义校验
+const PasswordSchema = z
+    .string()
+    .min(8)
+    .regex(/[A-Z]/, '需要至少一个大写字母')
+    .regex(/[a-z]/, '需要至少一个小写字母')
+    .regex(/[0-9]/, '需要至少一个数字');
+```
+
+#### 最佳实践
+
+##### 模式定义
+
+```typescript
+// schemas/user.schema.ts
+export const UserSchema = z.object({
+    username: z.string().min(3).max(20),
+    password: z.string().min(8),
+    email: z.string().email(),
+    role: z.enum(['admin', 'user']).default('user'),
+    settings: z
+        .object({
+            theme: z.enum(['light', 'dark']).default('light'),
+            notifications: z.boolean().default(true)
+        })
+        .default({})
+});
+
+export type User = z.infer<typeof UserSchema>;
+```
+
+##### 复杂校验
+
+```typescript
+// 日期范围校验
+const DateRangeSchema = z
+    .object({
+        start: z.date(),
+        end: z.date()
+    })
+    .refine((data) => data.start <= data.end, '结束日期必须晚于开始日期');
+
+// 条件校验
+const FormSchema = z
+    .object({
+        type: z.enum(['personal', 'business']),
+        companyName: z.string().optional(),
+        taxId: z.string().optional()
+    })
+    .refine((data) => {
+        if (data.type === 'business') {
+            return !!data.companyName && !!data.taxId;
+        }
+        return true;
+    }, '企业用户必须提供公司名称和税号');
+```
+
+##### 错误处理
+
+```typescript
+// 自定义错误消息
+const LoginSchema = z.object({
+    username: z
+        .string({
+            required_error: '用户名是必填项',
+            invalid_type_error: '用户名必须是字符串'
+        })
+        .min(3, '用户名至少需要3个字符'),
+    password: z
+        .string({
+            required_error: '密码是必填项'
+        })
+        .min(8, '密码至少需要8个字符')
+});
+
+// 统一错误处理
+function handleZodError(error: z.ZodError) {
+    return {
+        code: 1,
+        success: false,
+        errors: error.errors.map((err) => ({
+            field: err.path.join('.'),
+            message: err.message
+        }))
+    };
+}
+```
+
+## React前端规范
+
+### 文件命名
+
+- 使用kebab-case（短横线分隔）
+
+```
+user-list.component.tsx
+user-profile.component.tsx
+```
+
+### 组件定义
+
+- 使用函数组件
+- 组件名使用PascalCase，props名称使用`${Name}Props`
+- 函数组件省略返回类型
+
+```tsx
+interface UserListProps {
+    users: User[];
+}
+function UserList(props: UserListProps) {
+    return (
+        <div>
+            <h1>User List</h1>
+            <ul>
+                <li>User 1</li>
+                <li>User 2</li>
+            </ul>
+        </div>
+    );
+}
+```
+
+### 事件处理
+
+- 使用`const`和`useCallback`定义事件处理函数
+
+```typescript
+const handleClick = useCallback(() => {
+    processClick();
+}, [processClick]);
+```
+
+### 状态管理
+
+- 使用`zustand`管理状态
+
+```typescript
+const useStore = create<Store>((set) => ({
+    count: 0,
+    increment: () => set((state) => ({ count: state.count + 1 }))
+}));
+```
+
+### 样式规范
+
+- 使用SCSS和CSS Modules
+- 类名使用camelCase
+
+```scss
+.userContainer {
+    display: flex;
+}
+
+.userProfile {
+    margin: 16px;
+}
+```
+
+```tsx
+import styles from './user-list.module.scss';
+
+function UserList() {
+    return (
+        <div className={styles.userContainer}>
+            <div className={styles.userProfile}>User Profile</div>
+        </div>
+    );
+}
+```

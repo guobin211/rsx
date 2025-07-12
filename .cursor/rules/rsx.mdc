@@ -1,0 +1,57 @@
+---
+description:
+globs: *.rsx
+alwaysApply: false
+---
+
+# Rsx编码规范
+
+## 基本规范
+
+### 语法规则
+
+- rsx文件用`.rsx`后缀，文件内容分为4个部分：`rust`、`script`、`template`和`style`
+- `rust`部分使用Rust语言编写，以`---`开头，以`---`结尾
+- `script`部分使用JavaScript语言编写，以`<script>`开头，以`</script>`结尾
+- `template`部分使用HTML模板语法，以`<template>`开头，以`</template>`结尾
+- `style`部分使用CSS样式，以`<style>`开头，以`</style>`结尾
+- 使用4个空格缩进
+- 行宽不超过100字符
+
+### Rust 部分
+
+- 使用`async fn get_server_side_props(req: Request) -> Response`获取服务器端属性
+- 使用`async fn get_server_side_props(req: Request, ctx: Context) -> Response`获取服务器端属性，携带上下文
+
+```rust
+async fn get_server_side_props(req: Request) -> Response {
+    // 获取服务器端属性
+    let items = vec![
+        "Apple".to_string(),
+        "Banana".to_string(),
+    ];
+    Response::json!({
+        "data": items,
+    })
+}
+```
+
+### JavaScript 部分
+
+- 使用`defineProps()`接收组件属性
+
+```ts
+const { data } = defineProps<{ data: string[] }>();
+```
+
+### Template 部分
+
+- 使用类似`svelte`的模板语法
+
+```html
+<ul>
+    {#each data as item, i}
+    <li>{i + 1}: {item}</li>
+    {/each}
+</ul>
+```

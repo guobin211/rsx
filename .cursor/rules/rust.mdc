@@ -1,0 +1,373 @@
+---
+description:
+globs: *.rs
+alwaysApply: false
+---
+
+## Rust编码规范
+
+- 使用4个空格缩进
+- 使用actix-web编写服务端代码
+- 使用reqwest发送HTTP请求
+- 使用tokio、tokio-stream、tokio-util来处理异步编程
+- 使用anyhow处理异常
+- 使用lazy_static处理静态变量
+- 使用serde和serde_json处理序列化
+- 使用tauri处理桌面应用程序
+- 使用clap处理命令行参数
+- 使用mongodb和redis库操作MongoDB和Redis
+- 使用log和env_logger处理日志
+- 使用thiserror处理错误
+- 使用regex来处理正则表达式
+- 使用validator来验证数据
+- 使用walkdir来遍历目录
+- 使用futures和async_trait来处理异步编程接口
+- 使用dayjs处理日期时间，代码在`crates/dayjs/src/lib.rs`
+- 使用afs来处理文件系统操作，代码在`crates/afs/src/lib.rs`
+- 使用codec来处理数据编解码，代码在`crates/codec/src/lib.rs`
+
+## 代码风格
+
+### 缩进和格式化
+
+- 使用4个空格缩进
+- 最大行宽限制为100字符
+- 使用Unix风格的换行符
+- 使用rustfmt进行代码格式化，配置文件`.rustfmt.toml`内容如下：
+    ```toml
+    max_width = 100
+    tab_spaces = 4
+    newline_style = "Unix"
+    ```
+
+### 命名规范
+
+- 变量和函数使用`snake_case`
+
+```rust
+fn main() {
+    let user_name = "john";
+    fn process_data() { }
+}
+```
+
+- 结构体和枚举使用`PascalCase`
+
+    ```rust
+    struct UserProfile { }
+    enum ConnectionState { }
+    ```
+
+- 枚举序列化为String
+
+    ```rust
+    #[derive(Serialize, Deserialize)]
+    enum UserRole {
+        #[serde(rename = "admin")]
+        Admin,
+        #[serde(rename = "user")]
+        User,
+        #[serde(rename = "guest")]
+        Guest,
+    }
+    ```
+
+- 常量使用`SCREAMING_SNAKE_CASE`
+    ```rust
+    const MAX_CONNECTIONS: u32 = 100;
+    ```
+
+## 依赖库使用规范
+
+### Web服务开发
+
+- 使用`actix-web`作为Web框架
+    ```rust
+    use actix_web::{web, App, HttpResponse, HttpServer};
+    ```
+
+### HTTP客户端
+
+- 使用`reqwest`发送HTTP请求
+    ```rust
+    use reqwest::Client;
+    ```
+
+### 异步编程
+
+- 使用`tokio`处理异步操作
+    ```rust
+    use tokio::runtime::Runtime;
+    ```
+
+### 错误处理
+
+- 使用`anyhow`处理异常
+    ```rust
+    use anyhow::{Result, Context};
+    ```
+
+### 静态变量
+
+- 使用`lazy_static`处理静态变量
+    ```rust
+    use lazy_static::lazy_static;
+    ```
+
+### 序列化/反序列化
+
+- 使用`serde`和`serde_json`处理数据序列化
+    ```rust
+    use serde::{Serialize, Deserialize};
+    ```
+
+### 桌面应用开发
+
+- 使用`tauri`开发桌面应用程序
+    ```rust
+    use tauri::Builder;
+    ```
+
+## 注释规范
+
+- 不使用行尾注释
+- 只在函数定义处添加文档注释
+    ```rust
+    /// 处理用户登录请求
+    fn handle_login(credentials: Credentials) -> Result<Token> {
+        // 实现代码
+    }
+    ```
+- 只在复杂的判断逻辑处添加必要注释
+    ```rust
+    fn main() {
+        // 检查用户权限并验证token有效性
+        if check_permission() && validate_token() {
+            // 实现代码
+        }
+    }
+    ```
+
+## 文件组织
+
+- 使用`mod.rs`组织模块
+- 每个功能模块放在独立的文件中
+- 相关的类型定义放在同一个模块中
+
+## 性能建议
+
+- 避免不必要的`.clone()`
+- 考虑使用`Arc`/`Rc`共享所有权
+- 大数据结构考虑使用`Cow`实现写时复制
+- 热点路径避免动态分配
+- 使用`#[inline]`谨慎地优化小函数
+
+## 错误处理规范
+
+### 错误类型设计
+
+- 为模块或库定义专门的错误类型
+
+```rust
+#[derive(Debug, thiserror::Error)]
+pub enum AppError {
+    #[error("数据库错误: {0}")]
+    Database(#[from] mongodb::error::Error),
+
+    #[error("验证错误: {0}")]
+    Validation(String),
+
+    #[error("未授权访问")]
+    Unauthorized,
+
+    #[error("资源不存在: {0}")]
+    NotFound(String),
+}
+```
+
+### 错误传播
+
+- 使用`?`操作符传播错误，而不是使用`match`或`unwrap`
+
+```rust
+fn process_data(data: &str) -> Result<ProcessedData, AppError> {
+    let parsed = parse_input(data)?;
+    let validated = validate_data(&parsed)?;
+    Ok(transform_data(validated)?)
+}
+```
+
+### 错误处理策略
+
+- 优先使用`Result`类型处理错误，避免使用`panic!`
+- 只在不可恢复的情况下使用`panic!`或`unwrap`
+- 使用`thiserror`定义错误类型，使用`anyhow`处理上层应用错误
+- 在库代码中返回精确的错误类型，在应用代码中可以使用`anyhow::Error`
+
+## 测试规范
+
+### 单元测试
+
+- 使用`#[test]`标记测试函数
+- 测试文件放在同一模块下的`tests`子模块中
+
+```rust
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_add_works() {
+        assert_eq!(add(2, 2), 4);
+    }
+
+    #[test]
+    fn test_add_negative_numbers() {
+        assert_eq!(add(-2, -2), -4);
+    }
+}
+```
+
+### 集成测试
+
+- 在项目根目录的`tests`文件夹中创建集成测试
+- 每个测试场景使用单独的文件
+
+### 测试覆盖率
+
+- 使用`cargo tarpaulin`或`grcov`检查测试覆盖率
+- 核心功能模块的测试覆盖率应达到80%以上
+
+### 模拟和测试工具
+
+- 使用`mockall`创建模拟对象
+- 使用`tokio::test`测试异步代码
+
+```rust
+#[tokio::test]
+async fn test_async_function() {
+    let result = async_function().await;
+    assert!(result.is_ok());
+}
+```
+
+## 文档规范
+
+### 代码文档
+
+- 为公共API提供文档注释
+- 使用`///`添加文档注释
+- 包含参数、返回值和示例
+
+````rust
+/// 计算两个数的和
+///
+/// # 参数
+///
+/// * `a` - 第一个加数
+/// * `b` - 第二个加数
+///
+/// # 返回值
+///
+/// 返回两个数的和
+///
+/// # 示例
+///
+/// ```
+/// let sum = add(2, 3);
+/// assert_eq!(sum, 5);
+/// ```
+pub fn add(a: i32, b: i32) -> i32 {
+    a + b
+}
+````
+
+### 模块文档
+
+- 使用`//!`为模块添加文档
+
+```rust
+//! 用户管理模块
+//!
+//! 本模块提供用户创建、认证和权限管理功能
+```
+
+### 文档测试
+
+- 确保文档中的示例代码是可运行的
+- 使用`cargo test --doc`运行文档测试
+
+## 并发编程规范
+
+### 线程安全
+
+- 使用`Arc`在线程间共享数据
+- 使用`Mutex`或`RwLock`保护共享状态
+- 避免使用`Rc`和`RefCell`在多线程环境中
+
+### 异步编程
+
+- 使用`async/await`而不是手动管理`Future`
+- 使用`tokio::spawn`创建异步任务
+
+### 通道使用
+
+- 使用`tokio::sync::mpsc`在异步任务间通信
+- 使用`std::sync::mpsc`在线程间通信
+- 适当设置通道缓冲区大小
+
+## 宏使用规范
+
+### 宏定义
+
+- 宏名称使用`snake_case`
+- 为宏提供详细的文档和示例
+- 使用`$crate`前缀引用当前crate中的项
+
+### 宏使用
+
+- 优先使用函数和泛型，只在必要时使用宏
+- 使用`macro_rules!`定义声明式宏
+- 复杂情况下使用过程宏
+
+## 安全性考虑
+
+### 输入验证
+
+- 不信任外部输入，总是验证所有输入
+- 使用`regex`验证字符串格式
+- 限制输入大小，防止DoS攻击
+
+### 敏感数据处理
+
+- 使用`secrecy`或`zeroize`处理敏感数据
+- 避免将敏感数据写入日志
+- 使用`constant_time_eq`比较敏感数据
+
+### 不安全代码
+
+- 将`unsafe`代码封装在安全的API后面
+- 为每个`unsafe`块添加详细注释，解释为什么它是安全的
+- 使用`unsafe`的替代方案，如`bytemuck`处理类型转换
+
+### 代码审查清单
+
+- 代码是否遵循命名规范？
+- 是否有适当的错误处理？
+- 是否有适当的测试覆盖？
+- 是否有适当的文档？
+- 是否有潜在的性能问题？
+- 是否有潜在的安全问题？
+- 是否有重复代码可以提取为函数或宏？
+
+### 最佳实践
+
+- 合理使用生命周期标注
+- 优先使用不可变变量（immutable）
+- 使用类型系统提供的安全保证
+- 避免过度使用unsafe代码块
+- 合理组织代码层次结构
+- 遵循Rust的所有权和借用规则
+- 使用`#[derive]`自动实现常用trait
+- 使用`clippy`检查代码质量
+- 定期更新依赖，关注安全公告
