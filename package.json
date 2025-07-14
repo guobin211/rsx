@@ -11,7 +11,7 @@
         "fmt": "pnpm fmt:js && pnpm fmt:rs && pnpm fmt:doc",
         "fmt:js": "biome format . --write",
         "fmt:rs": "cargo fmt --all",
-        "fmt:doc": "prettier -w ./*.md ./packages/**/*.md ./crates/**/*.md --log-level warn",
+        "fmt:doc": "prettier -w ./*.md ./.github/*.md ./packages/**/*.md ./crates/**/*.md --log-level warn",
         "lint": "pnpm run lint:rs && pnpm run lint:js ",
         "lint:rs": "cargo clippy --all --fix --allow-dirty --allow-staged",
         "lint:js": "pnpm run lint:js:biome && pnpm run lint:js:oxc",
