@@ -1,4 +1,4 @@
-export default function App() {
+export default function Page() {
     return (
         <div>
             <h1>Csr App</h1>

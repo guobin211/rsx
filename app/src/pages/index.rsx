@@ -41,7 +41,7 @@ pub async fn get_server_props(req: Request) -> Response {
     import Header from '../components/header.rsx';
     import Footer from '../components/footer.rsx';
     // csr components
-    import IndexApp from '../react-pages/index.app.tsx';
+    import IndexApp from '../react/index.app.tsx';
     // server props
     const { userInfo, newsInfo, title } = defineProps<{}>({});
     const version = '0.1.0';
