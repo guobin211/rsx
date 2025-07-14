@@ -134,7 +134,7 @@ export class RsxCompilerContext {
             ...config,
             pages: config.pages || path.join(this.root, 'src/pages'),
             output: config.output || path.join(this.root, 'dist'),
-            cache: config.cache || path.join(this.root, 'node_modules/.cache/rsx')
+            cache: config.cache || path.join(this.root, 'node_modules/.rsx')
         }
     }
 

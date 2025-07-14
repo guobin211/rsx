@@ -1,5 +1,5 @@
 {
-    "name": "rsx",
+    "name": "rsx-project",
     "version": "0.1.0",
     "description": "rust ssr framework for react",
     "type": "module",

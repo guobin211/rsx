@@ -44,6 +44,6 @@ export const getDefault = (): RsxConfig => {
         root,
         pages: path.join(root, 'src/pages'),
         output: path.join(root, 'dist'),
-        cache: path.join(root, 'node_modules/.cache/rsx')
+        cache: path.join(root, 'node_modules/.rsx')
     }
 }

@@ -1,9 +1,5 @@
 {
     "dependencies": {
-        "@swc/core": "^1.12.11",
-        "@types/react": "^19.1.8",
-        "@types/react-dom": "^19.1.6",
-        "@vitejs/plugin-react-swc": "^3.10.2",
         "@std/async": "npm:@jsr/std__async@^1.0.13",
         "@std/bytes": "npm:@jsr/std__bytes@^1.0.6",
         "@std/data-structures": "npm:@jsr/std__data-structures@^1.0.8",
@@ -13,6 +9,10 @@
         "@std/media-types": "npm:@jsr/std__media-types@^1.1.0",
         "@std/streams": "npm:@jsr/std__streams@^1.0.10",
         "@std/text": "npm:@jsr/std__text@^1.0.15",
+        "@swc/core": "^1.12.14",
+        "@types/react": "^19.1.8",
+        "@types/react-dom": "^19.1.6",
+        "@vitejs/plugin-react-swc": "^3.10.2",
         "cheerio": "^1.1.0",
         "fast-glob": "^3.3.3",
         "handlebars": "^4.7.8",
