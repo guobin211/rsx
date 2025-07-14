@@ -20,6 +20,8 @@ serde_json = { workspace = true }
 futures = { workspace = true }
 futures-util = { workspace = true }
 clap = { workspace = true }
+reqwest = { workspace = true}
+bytes = { workspace = true}
 
 [build-dependencies]
 dotenv = { workspace = true }

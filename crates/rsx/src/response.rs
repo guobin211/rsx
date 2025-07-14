@@ -1,20 +1,57 @@
-use crate::header::Header;
+use actix_web::http::header::{HeaderName, HeaderValue};
 use actix_web::{
     HttpResponse,
     body::{self, BoxBody, MessageBody},
     http::{StatusCode, header},
 };
-use serde::Serialize;
+use anyhow::Result;
+use http::HeaderMap;
+use reqwest::Response as ReqwestResponse;
+use serde::{Serialize, de::DeserializeOwned};
+use std::str::FromStr;
 
-/// 按web标准实现Response
-/// https://developer.mozilla.org/zh-CN/docs/Web/API/Response
-pub struct Response {
+use crate::header::Header;
+
+/// 客户端响应
+pub struct ClientResponse {
+    pub raw: ReqwestResponse,
+}
+
+impl ClientResponse {
+    /// 获取响应状态码
+    pub fn status(&self) -> u16 {
+        self.raw.status().as_u16()
+    }
+
+    /// 获取响应头
+    pub fn headers(&self) -> &HeaderMap {
+        self.raw.headers()
+    }
+
+    /// 以文本形式获取响应体
+    pub async fn text(self) -> Result<String> {
+        Ok(self.raw.text().await?)
+    }
+
+    /// 以JSON形式获取响应体
+    pub async fn json<T: DeserializeOwned>(self) -> Result<T> {
+        Ok(self.raw.json::<T>().await?)
+    }
+
+    /// 以字节形式获取响应体
+    pub async fn bytes(self) -> Result<bytes::Bytes> {
+        Ok(self.raw.bytes().await?)
+    }
+}
+
+/// 服务端响应
+pub struct ServerResponse {
     status: StatusCode,
     headers: header::HeaderMap,
     body: BoxBody,
 }
 
-impl Response {
+impl ServerResponse {
     /// 创建一个新的 Response 实例
     pub fn new(status: StatusCode) -> Self {
         Self {
@@ -98,12 +135,45 @@ impl Response {
     }
 }
 
+/// 按web标准实现Response
+/// https://developer.mozilla.org/zh-CN/docs/Web/API/Response
+pub enum Response {
+    Server(ServerResponse),
+    Client(ClientResponse),
+}
+
+impl From<ServerResponse> for Response {
+    fn from(res: ServerResponse) -> Self {
+        Response::Server(res)
+    }
+}
+
+impl From<ClientResponse> for Response {
+    fn from(res: ClientResponse) -> Self {
+        Response::Client(res)
+    }
+}
+
 impl From<Response> for HttpResponse {
     fn from(res: Response) -> Self {
-        let mut builder = HttpResponse::build(res.status);
-        for (key, value) in res.headers {
-            builder.insert_header((key, value));
+        match res {
+            Response::Server(server_res) => {
+                let mut builder = HttpResponse::build(server_res.status);
+                for (key, value) in server_res.headers {
+                    builder.insert_header((key, value));
+                }
+                builder.body(server_res.body)
+            }
+            Response::Client(client_res) => {
+                let mut builder =
+                    HttpResponse::build(StatusCode::from_u16(client_res.status()).unwrap());
+                for (name, value) in client_res.raw.headers() {
+                    let key = HeaderName::from_str(name.as_str()).unwrap();
+                    let value = HeaderValue::from_str(value.to_str().unwrap()).unwrap();
+                    builder.insert_header((key, value));
+                }
+                builder.streaming(client_res.raw.bytes_stream())
+            }
         }
-        builder.body(res.body)
     }
 }
